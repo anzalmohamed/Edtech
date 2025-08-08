@@ -1,0 +1,3613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EzyEdtech Enrollment</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+   <style>
+/* Update the root color variables */
+:root {
+  --ezy-green: #64aa5b; /* Updated to EzyScience Green  #64aa5b;*/
+  --light-green: #4caf50;
+  --lighter-green: #e8f5e9;
+  --bronze: #cd7f32;
+  --silver: #c0c0c0;
+  --gold: #ffd700;
+  
+ /* #47596f; blue-ish grey*/
+
+  /* New color variables for subjects */
+  --ezy-maths: #049DFF; /* EzyMaths Blue  #00a8e6*/
+  --ezy-business: #F6921E; /* EzyBusiness Orange */
+  --ezy-economics: #E64D4D; /* EzyEconomics Red */
+  --ezy-biology: #8BC53F; /* EzyBiology Green */
+  --ezy-physics: #36B238; /* EzyPhysics Green */
+  --ezy-chemistry: #00A69C; /* EzyChemistry Green */
+  --ezy-science: #1C8E68; /* EzyScience Green #64aa5b; */
+  
+  /* Grey colors */
+  --ezy-light-grey: #45626b;  
+  --ezy-dark-grey: #808887;
+}
+
+
+
+body { 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  background:#f4f7fa;  /* #eeeeee; - off white */
+  color: #333;
+  margin: 0;
+}
+
+nav {
+  background-color: var(--ezy-light-grey) !important;
+  color: #fff!important; /* Dark text for better contrast */
+}
+/* Layout structure */
+.container { 
+  display: flex; 
+  min-height: calc(100vh - 100px);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Sidebar stepper */
+.stepper {
+  width: 220px;
+  background: white;
+  padding: 15px 0;
+  /*border-right: 1px solid #e0e0e0;*/
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+ /*updates to stepper side bar
+  background-color: var(--ezy-light-grey) !important;*/
+  border-right: 1px solid #d0d0d0; 
+
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.step:hover {
+  background-color: var(--ezy-light-grey);
+  color: #eeeeee;
+}
+
+.step.active { 
+  color: var(--ezy-light-grey); 
+  font-weight: 600;
+  border-left: 3px solid var(--ezy-light-grey);
+  background-color: var(--lighter-green);
+}
+
+.step.completed { 
+  color: var(--ezy-green); 
+}
+
+.step-circle { 
+  width: 26px; 
+  height: 26px; 
+  background: #e0e0e0; 
+  border-radius: 50%; 
+  margin-right: 12px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.step.active .step-circle { 
+  background: var(--ezy-light-grey); 
+  color: white; 
+}
+.step.completed .step-circle {   background: var(--ezy-green); 
+  color:white; 
+}
+/* Main content area */
+.content {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  height: calc(100vh - 120px);
+}
+
+/* Form container */
+.form-box {
+  position: relative;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  width: 92%;
+  max-width: 980px;
+  margin: 35px auto;
+  max-height: none;
+  overflow: visible;
+  transform: scale(1);
+  transform-origin: center top;
+}
+
+/* Step 5 specific styling */
+.payment-plan-container {
+  margin-top: -5px;
+}
+
+.payment-plan-container h3 {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.toggle-btn {
+  padding: 0.7rem 1.4rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.payment-plan-container .flex.space-x-4 {
+  margin-bottom: 10px;
+}
+
+#packageOptions {
+  margin-top: 8px;
+  gap: 10px;
+}
+
+.package-card {
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.package-card h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.package-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ezy-green);
+}
+
+.feature-list {
+  margin: 10px 0;
+}
+
+.feature-list li {
+  padding: 3px 0;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* Step content visibility */
+.step-content { 
+  display: none; 
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+/* Progress indicator */
+.progress-container {
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  margin: 10px 0 25px;
+  overflow: hidden;
+}
+
+/* Subject selection layout */
+.subject-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.subject-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Subject cards */
+/* Subject-colored headings and borders */
+.subject-box[data-subject] {
+  border-left: 4px solid;
+  padding-left: 1rem;
+}
+
+/* Individual subject colors */
+.subject-box[data-subject="maths"] {
+  border-left-color: var(--ezy-maths);
+}
+.subject-box[data-subject="business"] {
+  border-left-color: var(--ezy-business);
+}
+.subject-box[data-subject="economics"] {
+  border-left-color: var(--ezy-economics);
+}
+.subject-box[data-subject="biology"] {
+  border-left-color: var(--ezy-biology);
+}
+.subject-box[data-subject="chemistry"] {
+  border-left-color: var(--ezy-chemistry);
+}
+.subject-box[data-subject="physics"] {
+  border-left-color: var(--ezy-physics);
+}
+
+/* Subject-colored option buttons */
+.option-card[data-subject] {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.option-card[data-subject]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+/* Individual subject button styles */
+.option-card[data-subject="maths"]::before {
+  background-color: var(--ezy-maths);
+}
+.option-card[data-subject="business"]::before {
+  background-color: var(--ezy-business);
+}
+.option-card[data-subject="economics"]::before {
+  background-color: var(--ezy-economics);
+}
+.option-card[data-subject="biology"]::before {
+  background-color: var(--ezy-biology);
+}
+.option-card[data-subject="chemistry"]::before {
+  background-color: var(--ezy-chemistry);
+}
+.option-card[data-subject="physics"]::before {
+  background-color: var(--ezy-physics);
+}
+
+/* Selected state for option cards */
+.option-card[data-subject].selected {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Cart item styling */
+.cart-review-item {
+  border-left: 4px solid;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cart-review-item[data-subject="maths"] {
+  border-left-color: var(--ezy-maths);
+}
+.cart-review-item[data-subject="business"] {
+  border-left-color: var(--ezy-business);
+}
+.cart-review-item[data-subject="economics"] {
+  border-left-color: var(--ezy-economics);
+}
+.cart-review-item[data-subject="biology"] {
+  border-left-color: var(--ezy-biology);
+}
+.cart-review-item[data-subject="chemistry"] {
+  border-left-color: var(--ezy-chemistry);
+}
+.cart-review-item[data-subject="physics"] {
+  border-left-color: var(--ezy-physics);
+}
+/* Update subject colors */
+.subject-card[data-subject="maths"] i,
+.subject-card[data-subject="maths"] h3 {
+  color: var(--ezy-maths) !important;
+}
+
+.subject-card[data-subject="business"] i,
+.subject-card[data-subject="business"] h3 {
+  color: var(--ezy-business) !important;
+}
+
+.subject-card[data-subject="economics"] i,
+.subject-card[data-subject="economics"] h3 {
+  color: var(--ezy-economics) !important;
+}
+
+.subject-card[data-subject="biology"] i,
+.subject-card[data-subject="biology"] h3 {
+  color: var(--ezy-biology) !important;
+}
+
+.subject-card[data-subject="chemistry"] i,
+.subject-card[data-subject="chemistry"] h3 {
+  color: var(--ezy-chemistry) !important;
+}
+
+.subject-card[data-subject="physics"] i,
+.subject-card[data-subject="physics"] h3 {
+  color: var(--ezy-physics) !important;
+}
+
+
+
+
+/* Subject icons in all steps */
+.subject-icon[data-subject="maths"],
+.subject-box[data-subject="maths"] .subject-icon {
+  color: var(--ezy-maths) !important;
+}
+
+.subject-icon[data-subject="business"],
+.subject-box[data-subject="business"] .subject-icon {
+  color: var(--ezy-business) !important;
+}
+
+.subject-icon[data-subject="economics"],
+.subject-box[data-subject="economics"] .subject-icon {
+  color: var(--ezy-economics) !important;
+}
+
+.subject-icon[data-subject="biology"],
+.subject-box[data-subject="biology"] .subject-icon {
+  color: var(--ezy-biology) !important;
+}
+
+.subject-icon[data-subject="chemistry"],
+.subject-box[data-subject="chemistry"] .subject-icon {
+  color: var(--ezy-chemistry) !important;
+}
+
+.subject-icon[data-subject="physics"],
+.subject-box[data-subject="physics"] .subject-icon {
+  color: var(--ezy-physics) !important;
+}
+
+/* Subject titles in all steps */
+.subject-box[data-subject="maths"] h3 {
+  color: var(--ezy-maths) !important;
+}
+
+.subject-box[data-subject="business"] h3 {
+  color: var(--ezy-business) !important;
+}
+
+.subject-box[data-subject="economics"] h3 {
+  color: var(--ezy-economics) !important;
+}
+
+.subject-box[data-subject="biology"] h3 {
+  color: var(--ezy-biology) !important;
+}
+
+.subject-box[data-subject="chemistry"] h3 {
+  color: var(--ezy-chemistry) !important;
+}
+
+.subject-box[data-subject="physics"] h3 {
+  color: var(--ezy-physics) !important;
+}
+
+.subject-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.subject-card:hover {
+  border-color: var(--light-green);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.subject-card.selected {
+  border-color: var(--ezy-green);
+  background-color: var(--lighter-green);
+}
+
+.subject-card.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--ezy-green);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.subject-card i {
+  font-size: 2rem;
+  color: var(--ezy-green);
+  margin-bottom: 10px;
+}
+
+.subject-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* Container resets */
+#examBoardContainer,
+#levelOptions,
+#tierOptions,
+#packageOptions,
+.subjects-grid {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+/* Subject grid for exam board, level and tier steps */
+.subjects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.subject-column {
+  flex: 1;
+  min-width: 220px;
+}
+
+.subject-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  background-color: #f9fafb;
+}
+
+/* Option selection styles */
+.board-options,
+.level-options,
+.tier-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.option-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.option-card h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.option-card:hover {
+  border-color: #93c5fd;
+  background-color: #eff6ff;
+}
+
+.option-card.selected {
+  border-color: var(--ezy-green);
+  background-color: var(--lighter-green);
+  position: relative;
+}
+
+.option-card.selected::after {
+  content: '\f00c';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--ezy-green);
+}
+
+/* Button styles */
+.btn { 
+  padding: 0.9rem 1.8rem; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-next { 
+   /*  background: var(--ezy-dark-grey) !important;
+  color: white !important;*/
+ background: var(--ezy-green); 
+  color: white; 
+}
+
+.btn-next:hover {
+  background: #1b5e20;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-back { 
+  background: #f5f5f5; 
+  color: #555; 
+  margin-right: 1rem; 
+}
+
+.btn-back:hover {
+  background: #e0e0e0;
+}
+
+.btn.disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background-color: #6b7280;
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 100%;
+  background-color: var(--ezy-green);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* Button container spacing */
+.mt-8 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Step headers */
+.step-header {
+  text-align: center;
+  margin-bottom: 22px;
+  margin-top: 10px;
+}
+
+.step-header h2 {
+  font-size: 1.5rem;
+  color: var(--ezy-green);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.step-header p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Payment plan toggle */
+.toggle-btn {
+  padding: 0.9rem 1.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #444;
+  width: 100%;
+}
+
+.toggle-btn:hover {
+  background-color: #eee;
+}
+
+.selected-toggle {
+  background-color: var(--ezy-green) !important;
+  color: white !important;
+  border-color: var(--ezy-green) !important;
+}
+
+/* Package cards */
+.package-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  margin-bottom: 15px;
+  background-color: white;
+}
+
+.package-card.selected {
+  border-color: var(--ezy-green);
+  background-color: var(--lighter-green);
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
+.package-card h3 {
+  font-size: 1.3rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Single subject pricing - simpler design */
+.single-subject-message {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.single-price {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--ezy-green);
+  margin: 10px 0;
+}
+
+/* Feature lists */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.feature-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+}
+
+.feature-list li:last-child {
+  border-bottom: none;
+}
+
+.feature-list i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.fa-check {
+  color: var(--ezy-green);
+}
+
+.fa-times {
+  color: #f44336;
+}
+
+/* Discount tag */
+.discount-badge {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+/* Cart styles */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+#cartItemsContainer {
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 5px;
+}
+
+/* Cart dropdown */
+.cart-dropdown {
+  position: absolute;
+  right: 15px;
+  top: 100%;
+  width: 320px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  margin-top: 10px;
+  display: none;
+  overflow: hidden;
+  color: #333;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  border: 1px solid #e0e0e0;
+}
+
+.cart-dropdown.open {
+  display: block;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+}
+
+.cart-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.close-cart {
+  cursor: pointer;
+  color: #777;
+  transition: all 0.2s;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-cart:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.cart-items {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.cart-item-left {
+  flex: 1;
+}
+
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.cart-item-header h4 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.cart-item-details {
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+.cart-item-detail {
+  margin-bottom: 0.2rem;
+  font-size: 0.8rem;
+  display: flex;
+}
+
+.cart-item-detail span:first-child {
+  font-weight: 500;
+  margin-right: 5px;
+  min-width: 80px;
+}
+
+/* Cart status indicators */
+.cart-item-status {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  width: fit-content;
+}
+
+.status-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+  font-weight: 500;
+  border-left: 3px solid #f59e0b;
+}
+
+.status-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  font-weight: 500;
+  border-left: 3px solid #10b981;
+}
+
+/* Action buttons */
+.remove-item, 
+.remove-package {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  transition: all 0.2s;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.remove-item:hover, 
+.remove-package:hover {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+/* Cart footer */
+.cart-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.checkout-btn {
+  background-color: var(--ezy-green);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkout-btn:hover {
+  background-color: #1b5e20;
+}
+
+/* Empty cart message */
+.empty-cart {
+  padding: 40px 20px;
+  text-align: center;
+  color: #777;
+}
+
+.empty-cart i {
+  font-size: 2rem;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.empty-cart p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* Clear cart button */
+.clear-cart-button {
+  padding: 10px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #f9f9f9;
+}
+
+.clear-cart-button button {
+  background-color: #fee2e2;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.clear-cart-button button:hover {
+  background-color: #fecaca;
+}
+
+/* Checkout review styles */
+.cart-review-item {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.cart-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.cart-review-header h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cart-review-details {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.75rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.item-config {
+  margin-bottom: 0.5rem;
+}
+
+.item-config span {
+  font-weight: 500;
+  margin-right: 0.25rem;
+}
+
+/* Warning indicators */
+.checkout-warning {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.checkout-warning i {
+  font-size: 1.5rem;
+  color: #f59e0b;
+}
+
+.checkout-warning h4 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #92400e;
+}
+
+.checkout-warning p {
+  margin: 0;
+  color: #92400e;
+}
+
+.incomplete-subject {
+  border-left: 3px solid #f59e0b;
+}
+
+.item-warning {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background-color: #fff3cd;
+  border-radius: 0.25rem;
+  color: #92400e;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.cart-dropdown,
+#cartItemsContainer,
+.content {
+  scrollbar-width: thin;
+  scrollbar-color: #aaa #f1f1f1;
+} 
+
+/* Mobile responsive layout */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .stepper { 
+    display: none;
+  }
+  
+  .content { 
+    padding: 15px; 
+    height: auto;
+    overflow: visible;
+  } 
+
+  .form-box { 
+    padding: 20px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .subject-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .board-options,
+  .level-options,
+  .tier-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .cart-dropdown {
+    width: 280px;
+    right: -100px;
+  }
+}
+
+/* Laptop optimization */
+@media (min-width: 769px) and (max-width: 1366px) {
+  .form-box {
+    padding: 20px;
+    margin: 25px auto;
+    transform: scale(0.98);
+  }
+  
+  .step-content[data-step="5"] .payment-plan-container,
+  .step-content[data-step="6"] #cartItemsContainer {
+    max-height: calc(100vh - 350px);
+    overflow-y: auto;
+  }
+  
+  .package-card {
+    padding: 8px;
+  }
+  
+  .package-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  
+  .package-price {
+    font-size: 1.1rem;
+  }
+  
+  .feature-list li {
+    padding: 2px 0;
+    font-size: 0.8rem;
+  }
+}
+
+/* Medium screens */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stepper {
+    width: 180px;
+  }
+} 
+
+/* Shopping cart icon */
+#cart {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#cart:hover {
+  opacity: 0.9;
+}
+
+#cart span {
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+} 
+
+/* Step-specific spacing */
+.step-content[data-step="2"], 
+.step-content[data-step="3"] {
+  padding-top: 15px;
+}
+
+.step-content[data-step="5"] {
+  padding-top: 12px;
+}
+
+.step-content[data-step="6"] {
+  padding-top: 10px;
+}
+
+/* Consistent button spacing */
+.btn-container {
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+} </style>
+  <style>
+    @media (max-width: 768px) {
+      .container .stepper {
+        display: none;
+      }
+    }
+    
+    .step-content.active { 
+      display: block; 
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media screen and (min-height: 600px) and (max-height: 900px) {
+      .container {
+        min-height: calc(100vh - 120px);
+      }
+      
+      .form-box {
+        transform: scale(0.95);
+        transform-origin: top center;
+        margin: 25px auto;
+      }
+      
+      .step-content[data-step="5"],
+      .step-content[data-step="6"] {
+        padding-top: 5px;
+        margin-top: 0;
+      }
+      
+      .subject-card {
+        padding: 14px;
+      }
+      
+      .subject-card i {
+        font-size: 1.6rem;
+        margin-bottom: 6px;
+      }
+      
+      .btn-container {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+      }
+      
+      .progress-container {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="bg-ezy-green text-white p-4 flex justify-between items-center sticky top-0 z-10 shadow-md" style="background-color: var(--ezy-green);">
+    <!-- <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+        <i class="fas fa-graduation-cap text-ezy-green" style="color: var(--ezy-green);"></i>
+      </div>
+      <span class="text-xl font-bold">EzyEdtech</span>
+    </div> -->
+
+    <div style="background-color: #42616b; padding: 8px 20px; display: flex; align-items: center;">
+  <!-- Circle with EZY -->
+  <div style="width: 40px; height: 40px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+    <span style="color: #42616b; font-size: 14px; font-family: 'Arial', sans-serif; letter-spacing: 1px;">EZY</span>
+  </div>
+  <!-- EDUCATION text -->
+  <span style="color: white; font-size: 14px; font-family: 'Arial', sans-serif; letter-spacing: 1px; margin-left: 8px;">
+    EDUCATION
+  </span>
+</div>
+
+    <div class="hidden md:flex space-x-6">
+      <a href="#" class="hover:text-gray-200 transition"><i class="fas fa-home mr-2"></i>Home</a>
+      <a href="#" class="hover:text-gray-200 transition"><i class="fas fa-book mr-2"></i>Subjects</a>
+      <a href="#" class="hover:text-gray-200 transition"><i class="fas fa-brain mr-2"></i>Learning Zone</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button id="cart" class="relative flex items-center hover:text-gray-200 transition">
+        <i class="fas fa-shopping-cart mr-1"></i>
+        <span class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center ml-1 animate-pulse">0</span>
+      </button>
+      <div id="cartDropdown" class="cart-dropdown">
+        <div class="cart-header">
+          <h3>Your Cart</h3>
+          <span class="close-cart"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="cart-items">
+          <!-- Cart items will be dynamically added here -->
+        </div>
+      </div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-gray-200 rounded-full mr-2"></div>
+        <span>Login</span>
+      </div>
+    </div>
+    
+  </nav>
+
+
+  <div class="container">
+    <div class="stepper">
+      <div class="step active" data-step="1"><div class="step-circle">1</div>Subject</div>
+      <div class="step" data-step="2"><div class="step-circle">2</div>Exam Board</div>
+      <div class="step" data-step="3"><div class="step-circle">3</div>Level</div>
+      <div class="step" data-step="4"><div class="step-circle">4</div>Tier</div>
+      <div class="step" data-step="5"><div class="step-circle">5</div>Payment Plan</div>
+      <div class="step" data-step="6"><div class="step-circle">6</div>Checkout</div>
+    </div>
+
+    <div class="content">
+      <div class="form-box">
+        <!-- Progress bar -->
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width: 12.5%"></div>
+        </div>
+        
+        <!-- Step 1: Subject Selection -->
+        <div class="step-content active" data-step="1">
+          <div class="step-header">
+            <h2>Choose Your Subjects</h2>
+            <p>Select one or more subjects to enroll in</p>
+          </div>
+          
+          <div class="subject-rows">
+            <!-- Row 1: Maths, Business, Economics -->
+            <div class="subject-row">
+              <div class="subject-card" data-subject="maths">
+                <i class="fas fa-calculator"></i>
+                <h3>Maths</h3>
+              </div>
+              
+              <div class="subject-card" data-subject="business">
+                <i class="fas fa-chart-line"></i>
+                <h3>Business</h3>
+              </div>
+              
+              <div class="subject-card" data-subject="economics">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>Economics</h3>
+              </div>
+            </div>
+            
+            <!-- Row 2: Biology, Chemistry, Physics -->
+            <div class="subject-row">
+              <div class="subject-card" data-subject="biology">
+                <i class="fas fa-seedling"></i>
+                <h3>Biology</h3>
+              </div>
+              
+              <div class="subject-card" data-subject="chemistry">
+                <i class="fas fa-flask"></i>
+                <h3>Chemistry</h3>
+              </div>
+              
+              <div class="subject-card" data-subject="physics">
+                <i class="fas fa-atom"></i>
+                <h3>Physics</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-8 text-center btn-container">
+            <button class="btn btn-next" onclick="nextStep(2)">
+           Continue with Selected Subject<i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Exam Board -->
+        <div class="step-content" data-step="2">
+          <div class="step-header">
+            <h2>Choose Exam Board</h2>
+            <p>Select your examination board for each subject</p>
+          </div>
+          
+          <div id="examBoardContainer">
+            <!-- Exam board options will be generated here -->
+          </div>
+          
+          <div class="mt-8 flex justify-center btn-container">
+            <button class="btn btn-back" onclick="prevStep(1)">
+              <i class="fas fa-arrow-left mr-2"></i> Back
+            </button>
+            <button class="btn btn-next" onclick="nextStep(3)">
+              Continue to Level Selection <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Level -->
+        <div class="step-content" data-step="3">
+          <div class="step-header">
+            <h2>Choose Level</h2>
+            <p>Select your curriculum level for each subject</p>
+          </div>
+          
+          <div id="levelOptions">
+            <!-- Level options will be generated here -->
+          </div>
+          
+          <div class="mt-8 flex justify-center btn-container">
+            <button class="btn btn-back" onclick="prevStep(2)">
+              <i class="fas fa-arrow-left mr-2"></i> Back
+            </button>
+            <button class="btn btn-next" onclick="nextStep(4)">
+            Continue to Module Selection<i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Tier -->
+        <div class="step-content" data-step="4">
+          <div class="step-header">
+            <h2>Choose Tier</h2>
+            <p>Select your tier or subcategory if applicable</p>
+          </div>
+          
+          <div id="tierOptions">
+            <!-- Tier options will be generated here -->
+          </div>
+          
+          <div class="mt-8 flex justify-center btn-container">
+            <button class="btn btn-back" onclick="prevStep(3)">
+              <i class="fas fa-arrow-left mr-2"></i> Back
+            </button>
+            <button class="btn btn-next" onclick="nextStep(5)">
+              Next <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 5: Payment Plan -->
+        <div class="step-content" data-step="5">
+          <div class="step-header">
+            <h2>Select Payment Plan</h2>
+            <p>Choose your subscription package</p>
+          </div>
+          
+          <div class="payment-plan-container">
+            <h3 class="text-lg font-semibold mb-4">Payment Frequency</h3>
+            <div class="flex space-x-4 mb-6">
+              <button id="monthlyBtn" class="toggle-btn selected-toggle">Monthly</button>
+              <button id="yearlyBtn" class="toggle-btn">Yearly <span class="discount-badge">Save 33%</span></button>
+            </div>
+            
+            <h3 class="text-lg font-semibold mb-4">Subscription Packages</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="packageOptions">
+              <!-- Package cards will be generated here -->
+            </div>
+          </div>
+          
+          <div class="mt-8 flex justify-center btn-container">
+            <button class="btn btn-back" onclick="prevStep(4)">
+              <i class="fas fa-arrow-left mr-2"></i> Back
+            </button>
+            <button class="btn btn-next" onclick="nextStep(6)">
+              Proceed to Cart <i class="fas fa-shopping-cart ml-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 6: Cart & Checkout -->
+        <div class="step-content" data-step="6">
+          <div class="step-header">
+            <h2>Review Your Cart</h2>
+            <p>Confirm your selections before checkout</p>
+          </div>
+          
+          <div id="cartItemsContainer" class="bg-gray-50 rounded-lg p-5 mb-6">
+            <!-- Cart items will be generated here -->
+          </div>
+          
+          <div class="text-center">
+            <p class="text-xl font-bold mb-4">Total: <span id="cartTotal">£0</span></p>
+            <button class="btn btn-next bg-blue-600 w-full max-w-xs" id="finalCheckoutBtn">
+              <i class="fab fa-paypal mr-2"></i> Pay Securely with Paypal
+            </button>
+          </div>
+          
+          <div class="mt-8 flex justify-center btn-container mb-2">
+            <button class="btn btn-back" onclick="prevStep(5)">
+              <i class="fas fa-arrow-left mr-2"></i> Edit Selection
+            </button>
+            <button class="btn btn-next ml-4" id="continueShoppingBtn">
+              <i class="fas fa-shopping-cart mr-2"></i> Continue Shopping
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-ezy-green text-white p-4 text-center mt-6" style=" background-color: var(--ezy-light-grey) !important;">
+    <p class="text-sm">© 2024 EzyEdtech. All rights reserved.</p>
+
+  </footer>
+
+  <!-- <script src="script.js"></script> -->
+   <script>document.addEventListener('DOMContentLoaded', () => {
+  // State management
+  let state = {
+    currentStep: 1,
+    selectedSubjects: [],
+    subjectConfigs: {},
+    paymentFrequency: 'monthly',
+    selectedPackage: null,
+    cartOpen: false
+  };
+
+  // Check smaller screen for optimizing layouts
+  const isSmallScreen = window.innerHeight < 900 || window.innerWidth < 1366;
+  
+  // Package data
+  const packageData = {
+    bronze: {
+      name: "Bronze",
+      description: "Basic access package",
+      monthlyPrice: 20,
+      yearlyPrice: 160,
+      features: {
+        access: "All Courses",
+        workSet: "Parent-led",
+        sessions: "No",
+        monitoring: "Email alerts only"
+      }
+    },
+    silver: {
+      name: "Silver",
+      description: "Includes tasks and monitoring",
+      monthlyPrice: 24.99,
+      yearlyPrice: 199.99,
+      features: {
+        access: "All Courses",
+        workSet: "Ezy sets work weekly",
+        sessions: "No",
+        monitoring: "Weekly audit + Monthly Report"
+      }
+    },
+    gold: {
+      name: "Gold",
+      description: "Includes live sessions and full monitoring",
+      monthlyPrice: 74.99,
+      yearlyPrice: 599.99,
+      features: {
+        access: "All Courses",
+        workSet: "Ezy sets work weekly",
+        sessions: "12 hrs/month",
+        monitoring: "Weekly audit + Monthly Report"
+      }
+    }
+  };
+  
+  //  subject categorization model
+  const subjectCategories = {
+    biology: {
+      examBoards: {
+        AQA: {
+          levels: {
+            GCSE: {
+              tiers: ["Foundation", "Higher"]
+            }
+          }
+        },
+        CAIE: {
+          levels: {
+            IGCSE: {
+              tiers: ["IGCSE Biology"]
+            }
+          }
+        },
+        EDEXCEL: {
+          levels: {
+            GCSE: {
+              tiers: ["Foundation", "Higher"]
+            },
+            IGCSE: {
+              tiers: ["IGCSE Biology"]
+            }
+          }
+        }
+      }
+    },
+    chemistry: {
+      examBoards: {
+        AQA: {
+          levels: {
+            GCSE: {
+              tiers: ["Foundation", "Higher"]
+            }
+          }
+        },
+        CAIE: {
+          levels: {
+            IGCSE: {
+              tiers: ["IGCSE Chemistry"]
+            }
+          }
+        },
+        EDEXCEL: {
+          levels: {
+            GCSE: {
+              tiers: ["Foundation", "Higher"]
+            },
+            IGCSE: {
+              tiers: ["IGCSE Chemistry"]
+            }
+          }
+        }
+      }
+    },
+   maths: {
+    
+  levels: {
+    GCSE: {
+      tiers: ["Foundation", "Higher"]
+    },
+    "AS Level": {
+      tiers: ["AS-level Maths"]
+    }
+  }
+},
+    physics: {
+      examBoards: {
+        AQA: {
+          levels: {
+            GCSE: {
+              tiers: ["Higher", "Foundation"]
+            }
+          }
+        },
+        CAIE: {
+          levels: {
+            IGCSE: {
+              tiers: ["IGCSE Physics"]
+            }
+          }
+        },
+        EDEXCEL: {
+          levels: {
+            GCSE: {
+              tiers: ["Higher", "Foundation"]
+            },
+            IGCSE: {
+              tiers: ["IGCSE Physics"]
+            }
+          }
+        }
+      }
+    },
+    business: {
+      examBoards: {
+        AQA: {
+          levels: {
+            "A Level": {
+              tiers: ["Not tiered"]
+            }
+          }
+        },
+        CAIE: {
+          levels: {
+            "A Level": {
+              tiers: ["Not tiered"]
+            }
+          }
+        },
+        EDEXCEL: {
+          levels: {
+            "A Level": {
+              tiers: ["Not tiered"]
+            },
+            GCSE: {
+              tiers: ["Not tiered"]
+            },
+            Worksheets: {
+              tiers: ["Not tiered"]
+            }
+          }
+        }
+      }
+    },
+    economics: {
+      examBoards: {
+        AQA: {
+          levels: {
+            "A Level": {
+              tiers: ["Macro", "Micro"]
+            }
+          }
+        },
+        CAIE: {
+          levels: {
+            "A Level": {
+              tiers: ["Macro", "Micro"]
+            }
+          }
+        },
+        EDEXCEL: {
+          levels: {
+            "A Level": {
+              tiers: ["Macro", "Micro"]
+            }
+          }
+        },
+        OCR: {
+          levels: {
+            GCSE: {
+              tiers: ["Not tiered"]
+            },
+            "A Level": {
+              tiers: ["Macro", "Micro"]
+            }
+          }
+        }
+      }
+    }
+  };
+  
+  // Syllabus options by subject (legacy data - will be replaced)
+  const syllabusOptions = {
+    maths: [
+      { value: 'gcse', label: 'GCSE', description: '' },
+      { value: 'aslevel', label: 'AS Level', description: '' }
+    ],
+    business: [
+      { value: 'gcse', label: 'GCSE', description: '' },
+      { value: 'alevel', label: 'A-Level', description: '' }
+    ],
+    economics: [
+      { value: 'gcse', label: 'GCSE', description: '' },
+      { value: 'alevel', label: 'A-Level', description: '' }
+    ],
+    biology: [
+      { value: 'gcse', label: 'GCSE', description: '' }
+    ],
+    chemistry: [
+      { value: 'gcse', label: 'GCSE', description: '' }
+    ],
+    physics: [
+      { value: 'gcse', label: 'GCSE', description: '' }
+    ]
+  };
+  
+  // Subject icons
+  const subjectIcons = {
+    maths: 'fa-calculator',
+    business: 'fa-chart-line',
+    economics: 'fa-money-bill-wave',
+    biology: 'fa-seedling',
+    chemistry: 'fa-flask',
+    physics: 'fa-atom'
+  };
+  
+  // DOM elements
+  const steps = document.querySelectorAll('.step');
+  const stepContents = document.querySelectorAll('.step-content');
+  const subjectCards = document.querySelectorAll('.subject-card');
+  const progressBar = document.getElementById('progressBar');
+  const cartCounter = document.querySelector('#cart span');
+  const monthlyBtn = document.getElementById('monthlyBtn');
+  const yearlyBtn = document.getElementById('yearlyBtn');
+  const cartButton = document.getElementById('cart');
+  const cartDropdown = document.getElementById('cartDropdown');
+  
+  // Add button-container class to all button containers for consistent spacing
+  function applyConsistentSpacing() {
+    document.querySelectorAll('.mt-8').forEach(container => {
+      if (!container.classList.contains('btn-container')) {
+        container.classList.add('btn-container');
+      }
+    });
+  }
+
+  // Initialize
+  updateProgressBar();
+  toggleBtn('monthlyBtn');
+  generatePackageCards();
+  updateLayoutForScreenSize();
+  applyConsistentSpacing(); // Ensure spacing is consistent on initial load
+
+  // Setup cart dropdown functionality
+  cartButton.addEventListener('click', () => {
+    state.cartOpen = !state.cartOpen;
+    updateCartDropdown();
+  });
+  
+  // Close button in cart dropdown
+  document.querySelector('.close-cart').addEventListener('click', () => {
+    state.cartOpen = false;
+    updateCartDropdown();
+  });
+
+  // Close cart dropdown when clicking outside
+  document.addEventListener('click', (event) => {
+    if (state.cartOpen && !cartButton.contains(event.target) && !cartDropdown.contains(event.target)) {
+      state.cartOpen = false;
+      updateCartDropdown();
+    }
+  });
+
+    // Add click event listeners to step indicators
+  steps.forEach(step => {
+    step.addEventListener('click', () => {
+      const stepNum = parseInt(step.getAttribute('data-step'));
+      const currentStepNum = state.currentStep;
+      
+      // Going forward or to a non-adjacent step requires validation of all steps in between
+      if (stepNum > currentStepNum) {
+        // Need to validate each step in sequence
+        for (let i = currentStepNum; i < stepNum; i++) {
+          if (!validateStep(i)) {
+            return; // Stop if any step fails validation
+          }
+        }
+        
+        // Special case for step 5 - update package type based on subject count before displaying
+        if (stepNum === 5) {
+          if (state.selectedSubjects.length === 1) {
+            state.selectedPackage = 'single';
+          } else if (state.selectedPackage === 'single' && state.selectedSubjects.length > 1) {
+            state.selectedPackage = null;
+          }
+        }
+        
+        updateStep(stepNum);
+        state.currentStep = stepNum;
+      } 
+      // Going backward to a completed step is always allowed
+      else if (stepNum < currentStepNum && step.classList.contains('completed')) {
+        updateStep(stepNum);
+        state.currentStep = stepNum;
+      }
+      // Clicking on the current step does nothing
+      else if (stepNum === currentStepNum) {
+        return;
+      }
+      
+      updateProgressBar();
+      
+      // Generate content for specific steps when navigating to them
+      if (stepNum === 2) {
+        generateExamBoardSelector();
+      } else if (stepNum === 3) {
+        generateLevelOptions();
+      } else if (stepNum === 4) {
+        generateTierOptions();
+      } else if (stepNum === 5) {
+        updatePackageCards();  // Ensure package cards reflect the correct subject count
+      } else if (stepNum === 6) {
+        updateCartDisplay();
+      }
+      
+      // Apply consistent spacing after step change
+      applyConsistentSpacing();
+    });
+  });
+  
+  // Subject selection
+  subjectCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const subject = card.dataset.subject;
+      
+      // Toggle selection
+      if (card.classList.contains('selected')) {
+        card.classList.remove('selected');
+        state.selectedSubjects = state.selectedSubjects.filter(s => s !== subject);
+        delete state.subjectConfigs[subject];
+        
+        // Check if we're now down to 1 subject and need to switch to single subject pricing
+        if (state.selectedSubjects.length === 1 && state.selectedPackage !== 'single') {
+          state.selectedPackage = 'single';
+        }
+      } else {
+        card.classList.add('selected');
+        state.selectedSubjects.push(subject);
+        
+        // Initialize config for this subject
+        state.subjectConfigs[subject] = {
+          examBoard: null,
+          level: null,
+          tier: null
+        };
+        
+        // Check if we now have multiple subjects and need to reset package selection
+        if (state.selectedSubjects.length > 1 && state.selectedPackage === 'single') {
+          state.selectedPackage = null;
+        }
+      }
+
+      updateCartDropdown();
+    });
+  });
+  
+  // Payment frequency toggle
+  monthlyBtn.addEventListener('click', () => {
+    // Only make changes if we're actually switching frequencies
+    if (state.paymentFrequency !== 'monthly') {
+      state.paymentFrequency = 'monthly';
+      // Clear the package selection when switching frequencies
+      state.selectedPackage = null;
+      // Remove selection from all package cards
+      document.querySelectorAll('.package-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      toggleBtn('monthlyBtn');
+      updatePackageCards();
+      updateCartDropdown();
+      
+      // If we're already on step 5 (payment plan), update the step completion state
+      if (state.currentStep >= 5) {
+        // Remove completed state from step 5 since we need to select a package again
+        document.querySelector(`.step[data-step="5"]`).classList.remove('completed');
+      }
+    }
+  });
+
+  yearlyBtn.addEventListener('click', () => {
+    // Only make changes if we're actually switching frequencies
+    if (state.paymentFrequency !== 'yearly') {
+      state.paymentFrequency = 'yearly';
+      // Clear the package selection when switching frequencies
+      state.selectedPackage = null;
+      // Remove selection from all package cards
+      document.querySelectorAll('.package-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      toggleBtn('yearlyBtn');
+      updatePackageCards();
+      updateCartDropdown();
+      
+      // If we're already on step 5 (payment plan), update the step completion state
+      if (state.currentStep >= 5) {
+        // Remove completed state from step 5 since we need to select a package again
+        document.querySelector(`.step[data-step="5"]`).classList.remove('completed');
+      }
+    }
+  });
+
+  function toggleBtn(activeId) {
+    monthlyBtn.classList.remove('selected-toggle');
+    yearlyBtn.classList.remove('selected-toggle');
+    document.getElementById(activeId).classList.add('selected-toggle');
+  }
+  
+  // Package selection
+  function handlePackageSelection(packageName) {
+    state.selectedPackage = packageName;
+    updatePackageCards();
+    updateCartDropdown();
+  }
+  
+  // Navigation functions
+  window.nextStep = function(stepNum) {
+    // Need to validate the current step first
+    if (!validateCurrentStep()) {
+      return;
+    }
+    
+    // When moving to any step, validate all previous steps
+    for (let i = 1; i < stepNum; i++) {
+        if (!validateStep(i)) {
+          // If an intermediate step fails validation, go to that step instead
+          stepNum = i;
+          break;
+      }
+    }
+    
+    // Pre-generate content for step 5 to prevent animation issues
+    if (stepNum === 5) {
+      // Check if subject count has changed, affecting package display
+      if (state.selectedSubjects.length === 1) {
+        state.selectedPackage = 'single';  // Set to single package for one subject
+      } else if (state.selectedPackage === 'single' && state.selectedSubjects.length > 1) {
+        state.selectedPackage = null;  // Reset package selection if changed from single to multiple
+      }
+      // Update package cards before revealing the step to avoid zoom effect
+      updatePackageCards();
+    }
+    
+    // Proceed to the next step
+    updateStep(stepNum);
+    state.currentStep = stepNum;
+    updateProgressBar();
+    
+    // Generate content for each step
+    if (stepNum === 2) {
+      generateExamBoardSelector();
+    }
+    
+    // Generate level options when moving to step 3
+    if (stepNum === 3) {
+      generateLevelOptions();
+    }
+    
+    // Generate tier options when moving to step 4
+    if (stepNum === 4) {
+      generateTierOptions();
+    }
+    
+    // Update cart when moving to final step
+    if (stepNum === 6) {
+      updateCartDisplay();
+    }
+    
+    // Apply consistent spacing
+    applyConsistentSpacing();
+         
+    updateCartDropdown();
+  };
+  
+  window.prevStep = function(stepNum) {
+    if (stepNum < state.currentStep) {
+      updateStep(stepNum);
+      state.currentStep = stepNum;
+      updateProgressBar();
+      updateCartDropdown();
+      applyConsistentSpacing();
+    }
+  };
+  
+  function updateStep(stepNum) {
+    // Update step content visibility
+    stepContents.forEach(content => content.classList.remove('active'));
+    document.querySelector(`.step-content[data-step="${stepNum}"]`).classList.add('active');
+    
+    // Update step indicators
+    steps.forEach(step => {
+      const stepNumAttr = parseInt(step.getAttribute('data-step'));
+      
+      // Set current step as active
+      step.classList.toggle('active', stepNumAttr === stepNum);
+      
+      // Only mark steps as completed if they've been validated
+      if (stepNumAttr < stepNum) {
+        // Validate that the step can be marked as completed
+        if (validateStep(stepNumAttr)) {
+          step.classList.add('completed');
+        } else {
+          // If validation fails, don't mark as completed
+          step.classList.remove('completed');
+        }
+      }
+    });
+  }
+  
+  // Validate a specific step by number
+  function validateStep(stepNum) {
+    switch (stepNum) {
+      case 1: // Subject selection
+        if (state.selectedSubjects.length === 0) {
+          alert("Please select at least one subject to continue.");
+          return false;
+        }
+        // Mark step as completed if valid
+        document.querySelector(`.step[data-step="${stepNum}"]`).classList.add('completed');
+        return true;
+        
+      case 2: // Exam board selection
+      // Only validate subjects that need exam boards (not Maths)
+      const subjectsToValidate = state.selectedSubjects.filter(subject => subject !== 'maths');
+      
+      let allSubjectsHaveExamBoards = true;
+      for (const subject of subjectsToValidate) {
+        if (!state.subjectConfigs[subject].examBoard) {
+          allSubjectsHaveExamBoards = false;
+          break;
+        }
+      }
+      
+      if (!allSubjectsHaveExamBoards) {
+        alert("Please select an exam board for each subject to continue.");
+        return false;
+      }
+      
+      document.querySelector(`.step[data-step="2"]`).classList.add('completed');
+      return true;
+      
+      case 3: // Level selection
+        let allSubjectsHaveLevels = true;
+        
+        for (const subject of state.selectedSubjects) {
+          if (!state.subjectConfigs[subject].level) {
+            allSubjectsHaveLevels = false;
+            break;
+          }
+        }
+        
+        if (!allSubjectsHaveLevels) {
+          alert("Please select a level for each subject to continue.");
+          return false;
+        }
+        
+        document.querySelector(`.step[data-step="${stepNum}"]`).classList.add('completed');
+        return true;
+        
+     case 4: // Tier selection
+      let allRequiredTiersSelected = true;
+      
+      for (const subject of state.selectedSubjects) {
+        const config = state.subjectConfigs[subject];
+        
+        // Skip if no level selected
+        if (!config.level) continue;
+        
+        // Get tiers
+        let tiers = [];
+        if (subject === 'maths') {
+          tiers = subjectCategories.maths.levels[config.level].tiers;
+        } else {
+          if (!config.examBoard) continue;
+          const boardData = subjectCategories[subject].examBoards[config.examBoard];
+          if (boardData && boardData.levels[config.level]) {
+            tiers = boardData.levels[config.level].tiers;
+          }
+        }
+        
+        // Check if tier selection is needed
+        const needsTierSelection = tiers.length > 1 || 
+                                 (tiers.length === 1 && 
+                                  !tiers.includes("Not specified") && 
+                                  !tiers.includes("Not tiered"));
+        
+        if (needsTierSelection && !config.tier) {
+          allRequiredTiersSelected = false;
+          break;
+        }
+      }
+      
+      if (!allRequiredTiersSelected) {
+        alert("Please select required tiers for each subject to continue.");
+        return false;
+      }
+      
+      document.querySelector(`.step[data-step="4"]`).classList.add('completed');
+      return true;
+      case 5: // Payment plan
+        // Single subject selection is handled automatically
+        if (state.selectedSubjects.length === 1) {
+          if (!state.selectedPackage) {
+            state.selectedPackage = 'single';
+          }
+          document.querySelector(`.step[data-step="${stepNum}"]`).classList.add('completed');
+          return true;
+        } 
+        // Multiple subjects require package selection
+        else if (!state.selectedPackage) {
+          alert("Please select a package to continue.");
+          return false;
+        }
+        
+        document.querySelector(`.step[data-step="${stepNum}"]`).classList.add('completed');
+        return true;
+        
+      default:
+        return true;
+    }
+  }
+  
+  // Validate the current step (used by the next buttons)
+  function validateCurrentStep() {
+    // If we're on step 4 and moving to step 5 with a single subject, set single subject pricing automatically
+    if (state.currentStep === 4 && state.selectedSubjects.length === 1) {
+      state.selectedPackage = 'single';
+    }
+    
+    // If we're on step 6 (checkout), we need to validate all previous steps first
+    if (state.currentStep === 6) {
+      for (let step = 1; step <= 5; step++) {
+        if (!validateStep(step)) {
+          // If a previous step fails validation, go to that step
+          updateStep(step);
+          state.currentStep = step;
+          updateProgressBar();
+          return false;
+        }
+      }
+    }
+    
+    // Otherwise, just validate the current step
+    return validateStep(state.currentStep);
+  }
+  
+  // Exam board selection - STEP 2
+// 2. Update the exam board selection function
+function generateExamBoardSelector() {
+  const container = document.getElementById('examBoardContainer');
+  container.innerHTML = '';
+
+  // Filter out Maths from subjects needing exam board
+  const subjectsNeedingExamBoard = state.selectedSubjects.filter(subject => subject !== 'maths');
+
+  if (subjectsNeedingExamBoard.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-8">
+        <i class="fas fa-check-circle text-green-500 text-4xl mb-4"></i>
+        <p class="text-lg">No exam board selection needed for your subjects.</p>
+        <p class="text-gray-600">Click "Next" to continue.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Create container for subject-specific exam board selection
+  const subjectsContainer = document.createElement('div');
+  subjectsContainer.className = 'subjects-grid';
+  container.appendChild(subjectsContainer);
+
+  let currentColumn = 0;
+  let rowContainer = null;
+
+  subjectsNeedingExamBoard.forEach(subject => {
+    const config = state.subjectConfigs[subject];
+    
+    // Create a new row every three subjects
+    if (currentColumn % 3 === 0) {
+      rowContainer = document.createElement('div');
+      rowContainer.className = 'subject-row';
+      subjectsContainer.appendChild(rowContainer);
+    }
+
+    // Create subject exam board section
+    const examBoardSection = document.createElement('div');
+    examBoardSection.className = 'subject-box subject-column';
+    
+    examBoardSection.innerHTML = `
+      <div class="flex items-center mb-3" data-subject="${subject}">
+        <i class="fas ${subjectIcons[subject]}  mr-2" style="color: var(--ezy-${subject})"></i>
+        <h3  class="text-lg font-medium">${subject.charAt(0).toUpperCase() + subject.slice(1)}</h3>
+      </div>
+      <p class="text-sm text-gray-600 mb-3">Select exam board:</p>
+    `;
+    
+
+
+
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = 'board-options';
+    
+    // Get all available exam boards for this subject
+    const availableBoards = Object.keys(subjectCategories[subject].examBoards);
+    
+    // Create cards for each available exam board
+    availableBoards.forEach(board => {
+      const isSelected = config.examBoard === board;
+      optionsDiv.innerHTML += `
+        <div class="option-card ${isSelected ? 'selected' : ''}" 
+             data-subject="${subject}" 
+             data-board="${board}">
+          <h4>${board}</h4>
+        </div>
+      `;
+    });
+    
+    examBoardSection.appendChild(optionsDiv);
+    rowContainer.appendChild(examBoardSection);
+    currentColumn++;
+  });
+
+  // Add event listeners to exam board options
+  document.querySelectorAll('.board-options .option-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const subject = card.dataset.subject;
+      const board = card.dataset.board;
+      
+      // Remove selection from other cards for this subject
+      document.querySelectorAll(`.board-options .option-card[data-subject="${subject}"]`)
+        .forEach(c => c.classList.remove('selected'));
+      
+      // Select this card
+      card.classList.add('selected');
+      
+      // Update state
+      state.subjectConfigs[subject].examBoard = board;
+      
+      // Reset level and tier as they depend on the exam board
+      state.subjectConfigs[subject].level = null;
+      state.subjectConfigs[subject].tier = null;
+      
+      updateCartDropdown();
+    });
+  });
+}
+  // Level selection - STEP 3
+ function generateLevelOptions() {
+  const container = document.getElementById('levelOptions');
+  container.innerHTML = '';
+  
+  const gridContainer = document.createElement('div');
+  gridContainer.className = 'subjects-grid';
+  container.appendChild(gridContainer);
+  
+  let currentColumn = 0;
+  let rowContainer = null;
+  
+  state.selectedSubjects.forEach(subject => {
+    const config = state.subjectConfigs[subject];
+    
+    // Create a new row every three subjects
+    if (currentColumn % 3 === 0) {
+      rowContainer = document.createElement('div');
+      rowContainer.className = 'subject-row';
+      gridContainer.appendChild(rowContainer);
+    }
+    
+ const levelBox = document.createElement('div');
+levelBox.className = 'subject-box subject-column';
+levelBox.dataset.subject = subject;
+    
+    levelBox.innerHTML = `
+      <div class="flex items-center mb-3">
+        <i class="fas ${subjectIcons[subject]}  mr-2" style="color: var(--ezy-${subject})" ></i>
+        <h3 class="text-lg font-medium">${subject.charAt(0).toUpperCase() + subject.slice(1)}</h3>
+      </div>
+      <p class="text-sm text-gray-600 mb-3">Select level:</p>
+    `;
+    
+
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = 'level-options';
+    
+    // Get levels - different approach for Maths vs other subjects
+    let availableLevels = [];
+    if (subject === 'maths') {
+      availableLevels = Object.keys(subjectCategories.maths.levels);
+    } else {
+      const examBoard = config.examBoard;
+      if (examBoard && subjectCategories[subject].examBoards[examBoard]) {
+        availableLevels = Object.keys(subjectCategories[subject].examBoards[examBoard].levels);
+      }
+    }
+    
+    // Create cards for each available level
+    availableLevels.forEach(level => {
+      const isSelected = config.level === level;
+      optionsDiv.innerHTML += `
+        <div class="option-card ${isSelected ? 'selected' : ''}" 
+             data-subject="${subject}" 
+             data-level="${level}">
+          <h4>${level}</h4>
+        </div>
+      `;
+    });
+    
+    levelBox.appendChild(optionsDiv);
+    rowContainer.appendChild(levelBox);
+    currentColumn++;
+  });
+    
+    // Add event listeners to level options
+    document.querySelectorAll('.level-options .option-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const subject = card.dataset.subject;
+        const level = card.dataset.level;
+        
+        // Remove selection from other cards for this subject
+        document.querySelectorAll(`.level-options .option-card[data-subject="${subject}"]`)
+          .forEach(c => c.classList.remove('selected'));
+        
+        // Select this card
+        card.classList.add('selected');
+        
+        // Update state
+        state.subjectConfigs[subject].level = level;
+        
+        // Reset tier as it depends on the level
+        state.subjectConfigs[subject].tier = null;
+        
+        updateCartDropdown();
+      });
+    });
+    
+    // Apply consistent spacing after generating content
+    applyConsistentSpacing();
+  }
+  
+  // Tier selection - STEP 4
+ 
+function generateTierOptions() {
+  const container = document.getElementById('tierOptions');
+  container.innerHTML = '';
+
+  const gridContainer = document.createElement('div');
+  gridContainer.className = 'subjects-grid';
+  container.appendChild(gridContainer);
+
+  let currentColumn = 0;
+  let rowContainer = null;
+  let subjectsWithTiers = 0;
+
+  state.selectedSubjects.forEach(subject => {
+    const config = state.subjectConfigs[subject];
+    
+    if (!config.level) return;
+
+    // Get tiers based on subject type
+    let tiers = [];
+    if (subject === 'maths') {
+      tiers = subjectCategories.maths.levels[config.level].tiers;
+    } else {
+      if (!config.examBoard) return;
+      const boardData = subjectCategories[subject].examBoards[config.examBoard];
+      if (boardData && boardData.levels[config.level]) {
+        tiers = boardData.levels[config.level].tiers;
+      }
+    }
+
+    // Skip if no tiers or only "Not specified"/"Not tiered"
+    if (tiers.length === 1 && 
+        (tiers[0] === "Not specified" || tiers[0] === "Not tiered")) {
+      state.subjectConfigs[subject].tier = tiers[0];
+      return;
+    }
+
+    // Create tier selection UI
+    if (currentColumn % 3 === 0) {
+      rowContainer = document.createElement('div');
+      rowContainer.className = 'subject-row';
+      gridContainer.appendChild(rowContainer);
+    }
+
+    const tierBox = document.createElement('div');
+    tierBox.className = 'subject-box subject-column';
+    
+    tierBox.innerHTML = `
+      <div class="flex items-center mb-3"  data-subject="${subject}">
+        <i class="fas ${subjectIcons[subject]} mr-2" style="color: var(--ezy-${subject})"></i>
+        <h3>${subject.charAt(0).toUpperCase() + subject.slice(1)} - ${config.level}</h3>
+      </div>
+      <p class="text-sm text-gray-600 mb-3">Select tier:</p>
+      <div class="tier-options"></div>
+    `;
+
+    const optionsDiv = tierBox.querySelector('.tier-options');
+    
+    tiers.forEach(tier => {
+      const isSelected = config.tier === tier;
+      optionsDiv.innerHTML += `
+        <div class="option-card ${isSelected ? 'selected' : ''}" 
+             data-subject="${subject}" 
+             data-tier="${tier}">
+          <h4>${tier}</h4>
+        </div>
+      `;
+    });
+
+    rowContainer.appendChild(tierBox);
+    currentColumn++;
+    subjectsWithTiers++;
+  });
+
+  if (subjectsWithTiers === 0) {
+    container.innerHTML = `
+      <div class="text-center py-8">
+        <i class="fas fa-check-circle text-green-500 text-4xl mb-4"></i>
+        <p class="text-lg">No tier selection required.</p>
+        <p class="text-gray-600">Click "Next" to proceed to pricing.</p>
+      </div>
+    `;
+  } else {
+    document.querySelectorAll('.tier-options .option-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const subject = card.dataset.subject;
+        const tier = card.dataset.tier;
+        
+        document.querySelectorAll(`.option-card[data-subject="${subject}"]`)
+          .forEach(c => c.classList.remove('selected'));
+        
+        card.classList.add('selected');
+        state.subjectConfigs[subject].tier = tier;
+        updateCartDropdown();
+      });
+    });
+  }
+}
+  function updateLayoutForScreenSize() {
+    // Update the isSmallScreen variable based on current dimensions
+    const wasSmallScreen = isSmallScreen;
+    const nowSmallScreen = window.innerHeight < 900 || window.innerWidth < 1366;
+    
+    // Only regenerate layouts if the screen size category changed
+    if (wasSmallScreen !== nowSmallScreen) {
+      // Regenerate content for the current step if needed
+      if (state.currentStep === 2) {
+        generateExamBoardSelector();
+      } else if (state.currentStep === 3) {
+        generateLevelOptions();
+      } else if (state.currentStep === 4) {
+        generateTierOptions();
+      } else if (state.currentStep === 5) {
+        updatePackageCards();
+      }
+    }
+    
+    // Always apply consistent spacing regardless of screen size change
+    applyConsistentSpacing();
+  }
+  
+  // Listen for window resize and adjust layout
+  window.addEventListener('resize', () => {
+    updateLayoutForScreenSize();
+  });
+  
+  // Generate package cards
+  function generatePackageCards() {
+    const container = document.getElementById('packageOptions');
+    container.innerHTML = '';
+    
+    // Adjust grid layout based on subject count
+    if (state.selectedSubjects.length === 1) {
+      // For single subject, use a centered layout with no grid
+      container.className = 'flex justify-center';
+    } else {
+      // For multiple subjects, restore the grid layout
+      container.className = 'grid grid-cols-1 md:grid-cols-3 gap-4';
+    }
+    
+    // Hide or show the "Subscription Packages" heading based on subject count
+    const packagesHeading = document.querySelector('.payment-plan-container h3:nth-of-type(2)');
+    if (packagesHeading) {
+      if (state.selectedSubjects.length === 1) {
+        packagesHeading.style.display = 'none';
+      } else {
+        packagesHeading.style.display = 'block';
+      }
+    }
+    
+                // Special case for single subject
+      if (state.selectedSubjects.length === 1) {
+        const singleSubjectMonthlyPrice = 9.99;
+        const singleSubjectYearlyPrice = 75;
+        const price = state.paymentFrequency === 'monthly' ? singleSubjectMonthlyPrice : singleSubjectYearlyPrice;
+        const period = state.paymentFrequency === 'monthly' ? 'month' : 'year';
+        
+        // Create a simple, centered message for single subject
+        const singleSubjectCard = document.createElement('div');
+        singleSubjectCard.className = 'single-subject-message';
+        
+        singleSubjectCard.innerHTML = `
+          <div class="text-center py-8">
+            <h3 class="text-xl font-medium mb-3">Single Subject Pricing</h3>
+            <div class="single-price">£${price}/${period}</div>
+            <p class="text-gray-600 mt-4 mb-6">No package selection is required. Monthly and yearly package plans are available for more than one subject. Click 'Proceed to Cart' to continue.</p>
+          </div>
+        `;
+        
+        container.appendChild(singleSubjectCard);
+        
+        // Set the package to single automatically
+        state.selectedPackage = 'single';
+        
+        return;
+    }
+    
+    // Regular package display for multiple subjects
+    Object.keys(packageData).forEach(packageKey => {
+      const packageInfo = packageData[packageKey];
+      const isSelected = state.selectedPackage === packageKey;
+      const price = state.paymentFrequency === 'monthly' ? 
+        packageInfo.monthlyPrice : packageInfo.yearlyPrice;
+      const period = state.paymentFrequency === 'monthly' ? 'month' : 'year';
+      
+      const card = document.createElement('div');
+      card.className = `package-card ${isSelected ? 'selected' : ''}`;
+      card.dataset.package = packageKey;
+      card.onclick = () => handlePackageSelection(packageKey);
+      
+      card.innerHTML = `
+        <h3>
+          ${packageInfo.name}
+          ${isSelected ? '<i class="fas fa-check-circle text-green-500"></i>' : ''}
+        </h3>
+        <div class="package-price">£${price}/${period}</div>
+        <p class="text-gray-600">${packageInfo.description}</p>
+        
+        <ul class="feature-list">
+          <li>
+            <i class="fas ${packageInfo.features.access ? 'fa-check' : 'fa-times'}"></i>
+            <span><strong>Access:</strong> ${packageInfo.features.access}</span>
+          </li>
+          <li>
+            <i class="fas ${packageInfo.features.workSet ? 'fa-check' : 'fa-times'}"></i>
+            <span><strong>Work Set:</strong> ${packageInfo.features.workSet}</span>
+          </li>
+          <li>
+            <i class="fas ${packageInfo.features.sessions === 'No' ? 'fa-times' : 'fa-check'}"></i>
+            <span><strong>Supervised Sessions:</strong> ${packageInfo.features.sessions}</span>
+          </li>
+          <li>
+            <i class="fas ${packageInfo.features.monitoring ? 'fa-check' : 'fa-times'}"></i>
+            <span><strong>Monitoring & Reports:</strong> ${packageInfo.features.monitoring}</span>
+          </li>
+        </ul>
+      `;
+      
+      container.appendChild(card);
+    });
+  }
+  
+ // function updatePackageCards() {
+//    generatePackageCards();
+ // }
+  
+function updatePackageCards() {
+  // Determine correct discount
+  const yearlyDiscount = state.selectedSubjects.length === 1 ? 37.4 : 33;
+  
+  // Update yearly button text with correct discount
+  yearlyBtn.innerHTML = `Yearly <span class="discount-badge">Save ${yearlyDiscount}%</span>`;
+
+  // Regenerate package cards
+  generatePackageCards();
+}
+
+
+  function updateCartDisplay() {
+    const container = document.getElementById('cartItemsContainer');
+    container.innerHTML = '';
+    
+    let total = 0;
+    let hasIncompleteSubjects = false;
+    
+    // Show empty cart message if needed
+    if (state.selectedSubjects.length === 0) {
+      container.innerHTML = `
+        <div class="empty-cart-message">
+          <i class="fas fa-shopping-cart fa-3x mb-4 text-gray-400"></i>
+          <p class="text-lg mb-2">Your cart is empty</p>
+          <p class="text-gray-500">Please use the "Continue Shopping" button below to start selecting subjects</p>
+        </div>
+      `;
+      document.getElementById('cartTotal').textContent = '£0.00';
+      
+      // Disable the checkout button when cart is empty
+      const checkoutBtn = document.getElementById('finalCheckoutBtn');
+      if (checkoutBtn) {
+        checkoutBtn.classList.add('disabled');
+        checkoutBtn.setAttribute('disabled', 'disabled');
+      }
+      
+      return;
+    }
+    
+    // Add each selected subject with its configuration
+   state.selectedSubjects.forEach(subject => {
+        const config = state.subjectConfigs[subject];
+        const subjectItem = document.createElement('div');
+        subjectItem.className = 'cart-review-item';
+        
+        // SPECIAL CASE: Maths doesn't need exam board
+        const isMaths = subject === 'maths';
+        
+        // Check if subject is fully configured
+        let isComplete = true;
+        let incompleteReason = '';
+        
+        // Skip exam board check for Maths
+        if (!isMaths && !config.examBoard) {
+            isComplete = false;
+            incompleteReason = 'Missing exam board selection (Step 2)';
+        } 
+        // All subjects need level
+        else if (!config.level) {
+            isComplete = false;
+            incompleteReason = 'Missing level selection (Step 3)';
+        }
+        // Check tier if level exists
+        else if (config.level) {
+            let tiers = [];
+            
+            if (isMaths) {
+                // Directly get tiers from Maths levels
+                tiers = subjectCategories.maths.levels[config.level].tiers || [];
+            } else if (config.examBoard) {
+                // Get tiers through exam board for other subjects
+                const boardData = subjectCategories[subject].examBoards[config.examBoard];
+                if (boardData && boardData.levels[config.level]) {
+                    tiers = boardData.levels[config.level].tiers || [];
+                }
+            }
+            
+            // Check if tier selection is needed
+            const needsTierSelection = tiers.length > 1 || 
+                                     (tiers.length === 1 && 
+                                      !tiers.includes("Not specified") && 
+                                      !tiers.includes("Not tiered"));
+            
+            if (needsTierSelection && !config.tier) {
+                isComplete = false;
+                incompleteReason = 'Missing tier selection (Step 4)';
+            }
+        }
+        
+        if (!isComplete) {
+            hasIncompleteSubjects = true;
+            subjectItem.classList.add('incomplete-subject');
+        }
+        
+        // Format subject display
+        const formattedSubject = subject.charAt(0).toUpperCase() + subject.slice(1);
+        const subjectIcon = subjectIcons[subject] || 'fa-book';
+        
+        // Build the selection details - don't show exam board for Maths
+        let detailsHTML = '';
+        
+        if (!isMaths && config.examBoard) {
+            detailsHTML += `<div class="item-config"><span>Exam Board:</span> ${config.examBoard}</div>`;
+        }
+        
+        if (config.level) {
+            detailsHTML += `<div class="item-config"><span>Level:</span> ${config.level}</div>`;
+            
+            // Only show tier if it exists and isn't "Not tiered" or similar
+            if (config.tier && 
+                !["Not tiered", "Not specified"].includes(config.tier)) {
+                detailsHTML += `<div class="item-config"><span>Tier:</span> ${config.tier}</div>`;
+            }
+        }
+        
+        // Add warning if incomplete
+        if (!isComplete) {
+            detailsHTML += `
+                <div class="item-warning">
+                    <i class="fas fa-exclamation-circle"></i>
+                    ${incompleteReason}
+                </div>
+            `;
+        }
+        
+        // Build the item HTML
+        subjectItem.innerHTML = `
+            <div class="cart-review-header">
+                <div class="flex items-center">
+                    <i class="fas ${subjectIcon} mr-3" style="color: var(--ezy-${subject})"></i>
+                    <h4  style="color: var(--ezy-${subject})">${formattedSubject} ${config.level || ''} ${config.tier || ''}</h4>
+                </div>
+                <button class="remove-from-cart" data-subject="${subject}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-review-details">
+                ${detailsHTML}
+            </div>
+        `;     
+ 
+
+
+        container.appendChild(subjectItem);
+    });
+    
+    // Add the package if selected
+    if (state.selectedPackage) {
+      // Handle single subject pricing
+      if (state.selectedPackage === 'single' && state.selectedSubjects.length === 1) {
+        const singleSubjectMonthlyPrice = 9.99;
+        const singleSubjectYearlyPrice = 75;
+        const packagePrice = state.paymentFrequency === 'monthly' ? singleSubjectMonthlyPrice : singleSubjectYearlyPrice;
+        
+        const packageItem = document.createElement('div');
+        packageItem.className = 'cart-review-item package-item';
+        packageItem.innerHTML = `
+          <div class="cart-review-header">
+            <div>
+              <h4>Single Subject</h4>
+              <p class="text-sm text-gray-600">${state.paymentFrequency.charAt(0).toUpperCase() + state.paymentFrequency.slice(1)} billing</p>
+            </div>
+            <div class="package-price">£${packagePrice.toFixed(2)}</div>
+          </div>
+        `;
+        
+        container.appendChild(packageItem);
+        total = packagePrice;
+      } else {
+        // Regular package pricing for multiple subjects
+        const packageInfo = packageData[state.selectedPackage];
+        const packagePrice = state.paymentFrequency === 'monthly' ? 
+          packageInfo.monthlyPrice : packageInfo.yearlyPrice;
+        
+        const packageItem = document.createElement('div');
+        packageItem.className = 'cart-review-item package-item';
+        packageItem.innerHTML = `
+          <div class="cart-review-header">
+            <div>
+              <h4>${packageInfo.name} Package</h4>
+              <p class="text-sm text-gray-600">${state.paymentFrequency.charAt(0).toUpperCase() + state.paymentFrequency.slice(1)} billing</p>
+            </div>
+            <div class="package-price">£${packagePrice.toFixed(2)}</div>
+          </div>
+        `;
+        
+        container.appendChild(packageItem);
+        total = packagePrice; // Total is now exactly the package price
+      }
+    }
+    
+    // Display warning if there are incomplete subjects
+    if (hasIncompleteSubjects) {
+      const warningBox = document.createElement('div');
+      warningBox.className = 'checkout-warning';
+      warningBox.innerHTML = `
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>
+          <h4>Incomplete Selections</h4>
+          <p>Some subjects have incomplete configurations. Please complete all required selections to proceed with checkout.</p>
+        </div>
+      `;
+      container.prepend(warningBox);
+      
+      // Disable the checkout button
+      const checkoutBtn = document.getElementById('finalCheckoutBtn');
+      if (checkoutBtn) {
+        checkoutBtn.classList.add('disabled');
+        checkoutBtn.setAttribute('disabled', 'disabled');
+      }
+    } else {
+      // Enable the checkout button
+      const checkoutBtn = document.getElementById('finalCheckoutBtn');
+      if (checkoutBtn) {
+        checkoutBtn.classList.remove('disabled');
+        checkoutBtn.removeAttribute('disabled');
+      }
+    }
+    
+    // Update total display
+    document.getElementById('cartTotal').textContent = `£${total.toFixed(2)}`;
+    
+    // Add event listeners to remove buttons
+    document.querySelectorAll('.remove-from-cart').forEach(button => {
+      button.addEventListener('click', () => {
+        removeSubject(button.dataset.subject);
+        updateCartDisplay();
+      });
+    });
+    
+    // Show empty cart message if needed
+    if (state.selectedSubjects.length === 0) {
+      container.innerHTML = `
+        <div class="empty-cart-message">
+          <i class="fas fa-shopping-cart fa-3x mb-4 text-gray-400"></i>
+          <p class="text-lg mb-2">Your cart is empty</p>
+          <p class="text-gray-500">Please use the "Continue Shopping" button below to start selecting subjects</p>
+        </div>
+      `;
+      document.getElementById('cartTotal').textContent = '£0.00';
+    }
+  }
+  
+  function updateCartDropdown() {
+    // Toggle cart visibility
+    cartDropdown.classList.toggle('open', state.cartOpen);
+    
+    // First, let's clear the entire cart content and rebuild it
+    const cartItemsContainer = document.querySelector('.cart-items');
+    cartItemsContainer.innerHTML = '';
+    
+    // Remove any existing footer to prevent duplicates
+    const existingFooters = cartDropdown.querySelectorAll('.cart-footer');
+    existingFooters.forEach(footer => footer.remove());
+    
+    // Calculate total based on selected subjects and package
+    let totalPrice = 0;
+    let itemCount = 0;
+    
+    // Add clear cart button if there are items
+    if (state.selectedSubjects.length > 0) {
+      const clearCartButton = document.createElement('div');
+      clearCartButton.className = 'clear-cart-button';
+      clearCartButton.innerHTML = `
+        <button id="clearCartBtn">
+          <i class="fas fa-trash-alt mr-1"></i> Empty Cart
+        </button>
+      `;
+      cartItemsContainer.appendChild(clearCartButton);
+      
+      // Add event listener to clear cart button
+      setTimeout(() => {
+        document.getElementById('clearCartBtn')?.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent event from bubbling up
+          clearCart();
+        });
+      }, 0);
+    }
+    
+    // Check if package type needs to be updated based on subject count
+    if (state.selectedSubjects.length === 1 && state.selectedPackage !== 'single') {
+      state.selectedPackage = 'single';
+    } else if (state.selectedSubjects.length > 1 && state.selectedPackage === 'single') {
+      state.selectedPackage = null;
+    }
+    
+    // Add each selected subject to the cart
+    state.selectedSubjects.forEach(subject => {
+      const config = state.subjectConfigs[subject];
+      const item = document.createElement('div');
+      item.className = 'cart-item';
+      
+      // Create a status message based on configuration completeness
+      let statusMsg = '';
+      let statusClass = '';
+      let stepNeeded = '';
+      
+      if (!config.examBoard) {
+        statusMsg = 'Missing exam board';
+        statusClass = 'status-warning';
+        stepNeeded = '(Step 2)';
+      } else if (!config.level) {
+        statusMsg = 'Missing level';
+        statusClass = 'status-warning';
+        stepNeeded = '(Step 3)';
+      } else {
+        // Check if tier is needed but missing
+        const subjectData = subjectCategories[subject];
+        const boardData = subjectData.examBoards[config.examBoard];
+        const levelData = boardData.levels[config.level];
+        const tiers = levelData.tiers;
+        
+        // Check if this combination requires tier selection
+        const needsTierSelection = tiers.length > 1 && 
+                                  !tiers.includes("Not specified") && 
+                                  !tiers.includes("Not tiered");
+        
+        if (needsTierSelection && !config.tier) {
+          statusMsg = 'Missing tier';
+          statusClass = 'status-warning';
+          stepNeeded = '(Step 4)';
+        } else {
+          statusMsg = 'Fully configured';
+          statusClass = 'status-success';
+        }
+      }
+      
+      // Format the subject name to be more user friendly
+      const formattedSubject = subject.charAt(0).toUpperCase() + subject.slice(1);
+      
+      // Create simplified display for cart items with all info on one line
+      let subjectDetails = formattedSubject;
+      
+      if (config.examBoard) {
+        subjectDetails += ` ${config.examBoard}`;
+      }
+      
+      if (config.level) {
+        subjectDetails += ` ${config.level}`;
+      }
+      
+      if (config.tier) {
+        subjectDetails += ` ${config.tier}`;
+      }
+      
+      // Create the HTML for this cart item
+      item.innerHTML = `
+        <div class="cart-item-left">
+          <div class="cart-item-header">
+            <h4>${subjectDetails}</h4>
+          </div>
+          <div class="cart-item-status ${statusClass}">
+            <i class="fas ${statusClass === 'status-success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            ${statusMsg} ${stepNeeded}
+          </div>
+        </div>
+        <button class="remove-item" data-subject="${subject}"><i class="fas fa-times"></i></button>
+      `;
+      
+      cartItemsContainer.appendChild(item);
+      itemCount++;
+    });
+    
+    // Add package selection to the cart if one is selected
+    if (state.selectedPackage) {
+      // Handle single subject pricing
+      if (state.selectedPackage === 'single' && state.selectedSubjects.length === 1) {
+        const singleSubjectMonthlyPrice = 9.99;
+        const singleSubjectYearlyPrice = 75;
+        const price = state.paymentFrequency === 'monthly' ? singleSubjectMonthlyPrice : singleSubjectYearlyPrice;
+        
+        const packageItem = document.createElement('div');
+        packageItem.className = 'cart-item package-item';
+        packageItem.innerHTML = `
+          <div class="cart-item-left">
+            <div class="cart-item-header">
+              <h4>Single Subject (${state.paymentFrequency})</h4>
+            </div>
+            <div class="cart-item-price">£${price.toFixed(2)}</div>
+          </div>
+          <button class="remove-package"><i class="fas fa-times"></i></button>
+        `;
+        
+        cartItemsContainer.appendChild(packageItem);
+        totalPrice = price;
+        itemCount++;
+      } else {
+        // Regular package pricing
+        const packageInfo = packageData[state.selectedPackage];
+        const price = state.paymentFrequency === 'monthly' ? 
+          packageInfo.monthlyPrice : packageInfo.yearlyPrice;
+        
+        const packageItem = document.createElement('div');
+        packageItem.className = 'cart-item package-item';
+        packageItem.innerHTML = `
+          <div class="cart-item-left">
+            <div class="cart-item-header">
+              <h4>${packageInfo.name} Package (${state.paymentFrequency})</h4>
+            </div>
+            <div class="cart-item-price">£${price.toFixed(2)}</div>
+          </div>
+          <button class="remove-package"><i class="fas fa-times"></i></button>
+        `;
+        
+        cartItemsContainer.appendChild(packageItem);
+        totalPrice = price;
+        itemCount++;
+      }
+      
+      // Add event listener to remove package button
+      setTimeout(() => {
+        packageItem.querySelector('.remove-package')?.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent event from bubbling up
+          state.selectedPackage = null;
+          
+          // Reset package selection UI if we're on that step
+          if (state.currentStep === 5) {
+            document.querySelectorAll('.package-card').forEach(card => {
+              card.classList.remove('selected');
+            });
+          }
+          
+          updateCartDropdown();
+        });
+      }, 0);
+    }
+    
+    // Add cart footer with total and checkout button - ONLY ONCE
+    if (itemCount > 0) {
+      // Create a single footer
+      const cartFooter = document.createElement('div');
+      cartFooter.className = 'cart-footer';
+      cartFooter.innerHTML = `
+        <div class="cart-total-row">
+          <span>Total:</span>
+          <span class="cart-total">£${totalPrice.toFixed(2)}</span>
+        </div>
+        <button id="cartCheckoutBtn" class="checkout-btn">
+          <i class="fas fa-shopping-cart mr-2"></i>Checkout
+        </button>
+      `;
+      
+      // Append the footer directly to the dropdown, not to the items container's parent
+      cartDropdown.appendChild(cartFooter);
+      
+      // Add event listener to checkout button
+      setTimeout(() => {
+        const checkoutBtn = document.getElementById('cartCheckoutBtn');
+        if (checkoutBtn) {
+          checkoutBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event from bubbling up
+            state.cartOpen = false;
+            updateCartDropdown();
+            
+            // Navigate to checkout page if all steps are complete
+            // First check if all items in the cart are fully configured
+            if (!isCartFullyConfigured()) {
+              alert("Please complete all required selections for your subjects before checking out.");
+              
+              // Find which step needs to be completed first
+              let firstIncompleteStep = 2; // Default to exam board selection
+              let needToNavigate = false;
+              
+              for (const subject of state.selectedSubjects) {
+                const config = state.subjectConfigs[subject];
+                
+                if (!config.examBoard) {
+                  firstIncompleteStep = 2;
+                  needToNavigate = true;
+                  break;
+                } else if (!config.level) {
+                  firstIncompleteStep = 3;
+                  needToNavigate = true;
+                  break;
+                } else {
+                  // Check if tier selection is needed
+                  const subjectData = subjectCategories[subject];
+                  const boardData = subjectData.examBoards[config.examBoard];
+                  const levelData = boardData.levels[config.level];
+                  const tiers = levelData.tiers;
+                  
+                  const needsTierSelection = tiers.length > 1 && 
+                                          !tiers.includes("Not specified") && 
+                                          !tiers.includes("Not tiered");
+                  
+                  if (needsTierSelection && !config.tier) {
+                    firstIncompleteStep = 4;
+                    needToNavigate = true;
+                    break;
+                  }
+                }
+              }
+              
+              if (needToNavigate) {
+                // Navigate to the first incomplete step
+                updateStep(firstIncompleteStep);
+                state.currentStep = firstIncompleteStep;
+                updateProgressBar();
+                
+                // Generate content for the step
+                if (firstIncompleteStep === 2) generateExamBoardSelector();
+                else if (firstIncompleteStep === 3) generateLevelOptions();
+                else if (firstIncompleteStep === 4) generateTierOptions();
+              }
+              return;
+            }
+            
+            // Check if a package is selected
+            if (!state.selectedPackage) {
+              // For single subject, set the package automatically
+              if (state.selectedSubjects.length === 1) {
+                state.selectedPackage = 'single';
+              } else {
+                alert("Please select a payment package before checking out.");
+                updateStep(5);
+                state.currentStep = 5;
+                updateProgressBar();
+                return;
+              }
+            }
+            
+            // If everything is valid, go to checkout page
+            updateStep(6);
+            state.currentStep = 6;
+            updateProgressBar();
+            updateCartDisplay();
+          });
+        }
+      }, 0);
+    }
+    
+    // Update the counter badge
+    cartCounter.textContent = itemCount;
+    cartCounter.style.display = itemCount > 0 ? 'flex' : 'none';
+
+    // Add event listeners to remove buttons
+    setTimeout(() => {
+      document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent event from bubbling up
+          const subject = button.dataset.subject;
+        removeSubject(subject);
+          
+          // Important: Don't close the cart when removing items
+          state.cartOpen = true;
+          updateCartDropdown();
+      });
+    });
+    }, 0);
+    
+    // Show empty cart message if needed
+    if (itemCount === 0) {
+      cartItemsContainer.innerHTML = `
+        <div class="empty-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Your cart is empty</p>
+        </div>
+      `;
+    }
+  }
+  
+  function updateProgressBar() {
+    const progressPercentage = (state.currentStep / 6) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+  }
+
+  // Continue shopping button functionality
+  document.getElementById('continueShoppingBtn').addEventListener('click', () => {
+    // Clear any selections that might have been removed or changed
+    const validSubjects = [...state.selectedSubjects];
+    
+    // Check if all subjects in state are still selected in the UI
+    validSubjects.forEach(subject => {
+      const card = document.querySelector(`.subject-card[data-subject="${subject}"]`);
+      if (card && !card.classList.contains('selected')) {
+        // If a subject card exists but is not selected, remove it from state
+        state.selectedSubjects = state.selectedSubjects.filter(s => s !== subject);
+        delete state.subjectConfigs[subject];
+      }
+    });
+    
+    // Reset all completion states when going back to step 1
+    steps.forEach(step => {
+      const stepNum = parseInt(step.getAttribute('data-step'));
+      if (stepNum > 1) {
+        step.classList.remove('completed');
+      }
+    });
+    
+    updateStep(1);
+    state.currentStep = 1;
+    updateProgressBar();
+    updateCartDropdown();
+  });
+
+  // Add event listener for the cart checkout button
+  document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
+    // Check if cart is empty
+    if (state.selectedSubjects.length === 0) {
+      alert("Your cart is empty. Please select at least one subject.");
+      state.cartOpen = false;
+      updateCartDropdown();
+      return;
+    }
+
+    // Check if all items in the cart are fully configured
+    if (!isCartFullyConfigured()) {
+      alert("Please complete all required selections for your subjects before checking out.");
+      
+      // Find the first incomplete step and go there
+      let firstIncompleteStep = 2; // Start with exam board selection
+      
+      // Close the cart dropdown
+      state.cartOpen = false;
+      updateCartDropdown();
+      
+      // Navigate to the first incomplete step
+      updateStep(firstIncompleteStep);
+      state.currentStep = firstIncompleteStep;
+      updateProgressBar();
+      
+      // Generate content for the step
+      generateExamBoardSelector();
+      return;
+    }
+    
+    // First close the cart dropdown
+    state.cartOpen = false;
+    updateCartDropdown();
+    
+    // Check if all steps are valid before proceeding
+    let firstInvalidStep = null;
+    
+    // Validate steps 1-5 in sequence (include package selection)
+    for (let step = 1; step <= 5; step++) {
+      if (!validateStep(step)) {
+        firstInvalidStep = step;
+        break;
+      }
+    }
+    
+    if (firstInvalidStep) {
+      // If any step is invalid, navigate to the first invalid step
+      updateStep(firstInvalidStep);
+      state.currentStep = firstInvalidStep;
+      updateProgressBar();
+      
+      // Show an alert to inform the user
+      alert(`Please complete step ${firstInvalidStep} before proceeding to checkout.`);
+      
+      // Generate content for the step we're navigating to
+      if (firstInvalidStep === 2) {
+        generateExamBoardSelector();
+      } else if (firstInvalidStep === 3) {
+        generateLevelOptions();
+      } else if (firstInvalidStep === 4) {
+        generateTierOptions();
+      }
+      } else {
+      // If all steps are valid, proceed directly to checkout page (step 6)
+        updateStep(6);
+        state.currentStep = 6;
+      updateProgressBar();
+        updateCartDisplay();
+      }
+  });
+
+  // Continue shopping button (in final step)
+  document.getElementById('continueShoppingBtn')?.addEventListener('click', () => {
+    // If the cart is empty, reset everything before going back to step 1
+    if (state.selectedSubjects.length === 0) {
+      // Reset all steps to initial state
+      document.querySelectorAll('.step[data-step]').forEach(step => {
+        if (parseInt(step.getAttribute('data-step')) > 1) {
+          step.classList.remove('completed');
+        }
+      });
+      
+      // Reset selection states
+      state.selectedPackage = null;
+      
+      // Reset package UI selections if any
+      document.querySelectorAll('.package-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+    }
+    
+    // Go back to step 1 (subject selection)
+    updateStep(1);
+    state.currentStep = 1;
+    updateProgressBar();
+  });
+
+  // Initialize exam board selector if we're already on step 4
+  if (state.currentStep === 4) {
+    generateExamBoardSelector();
+  }
+
+  // Function to remove a subject from the cart
+  function removeSubject(subject) {
+    // Remove the subject from the selected subjects array
+    state.selectedSubjects = state.selectedSubjects.filter(s => s !== subject);
+    
+    // Remove the subject's configuration
+    delete state.subjectConfigs[subject];
+    
+    // Update UI to show the card as unselected in all steps
+    document.querySelectorAll(`.subject-card[data-subject="${subject}"]`)
+      .forEach(card => card.classList.remove('selected'));
+    
+    // Check if we need to update the package type based on subject count
+    if (state.selectedSubjects.length === 1 && state.selectedPackage !== 'single') {
+      // If only one subject remains, switch to single subject pricing
+      state.selectedPackage = 'single';
+      // Update package display if on step 5
+      if (state.currentStep === 5) {
+        updatePackageCards();
+      }
+    }
+    
+    // If we're on step 2 (exam board), regenerate the options
+    if (state.currentStep === 2) {
+      generateExamBoardSelector();
+    }
+    // If we're on step 3 (level selection), regenerate the options
+    else if (state.currentStep === 3) {
+      generateLevelOptions();
+    }
+    // If we're on step 4 (tier selection), regenerate the options
+    else if (state.currentStep === 4) {
+      generateTierOptions();
+    }
+    // If we're on step 5 (payment plan), regenerate the options
+    else if (state.currentStep === 5) {
+      updatePackageCards();
+    }
+    // Update the cart display if on checkout page
+    else if (state.currentStep === 6) {
+      updateCartDisplay();
+    }
+    
+    // After removing a subject, check if the cart is now empty
+    if (state.selectedSubjects.length === 0) {
+      // Reset all steps when the cart becomes empty
+      document.querySelectorAll('.step[data-step]').forEach(step => {
+        if (parseInt(step.getAttribute('data-step')) > 1) {
+          step.classList.remove('completed');
+        }
+      });
+      
+      // Reset selected package
+      state.selectedPackage = null;
+      
+      // Reset package UI selections if any
+      document.querySelectorAll('.package-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // If on later steps, go back to step 1
+      if (state.currentStep > 1) {
+        updateStep(1);
+        state.currentStep = 1;
+        updateProgressBar();
+      }
+    }
+    
+    // Don't close the cart - handled by the caller
+    updateCartDropdown();
+  }
+  
+  // Function to clear the entire cart
+  function clearCart() {
+    // Store the subjects to deselect
+    const subjectsToDeselect = [...state.selectedSubjects];
+    
+    // Clear the state
+    state.selectedSubjects = [];
+    state.subjectConfigs = {};
+    state.selectedPackage = null;
+    
+    // Reset any other selection state
+    state.selectedBoard = null;
+    
+    // Update the UI - remove selection from all subject cards
+    subjectsToDeselect.forEach(subject => {
+      document.querySelectorAll(`.subject-card[data-subject="${subject}"]`)
+        .forEach(card => card.classList.remove('selected'));
+    });
+    
+    // Clear selection from all package cards
+    document.querySelectorAll('.package-card').forEach(card => {
+      card.classList.remove('selected');
+    });
+    
+    // Clear selection from all option cards
+    document.querySelectorAll('.option-card').forEach(card => {
+      card.classList.remove('selected');
+    });
+    
+    // Update cart counter
+    cartCounter.textContent = '0';
+    cartCounter.style.display = 'none';
+    
+    // Reset total display on cart page
+    const cartTotalEl = document.getElementById('cartTotal');
+    if (cartTotalEl) {
+      cartTotalEl.textContent = '£0.00';
+    }
+    
+    // Clear cart items container
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    if (cartItemsContainer) {
+      cartItemsContainer.innerHTML = `
+        <div class="empty-cart-message">
+          <i class="fas fa-shopping-cart fa-3x mb-4 text-gray-400"></i>
+          <p class="text-lg mb-2">Your cart is empty</p>
+          <p class="text-gray-500">Please use the "Continue Shopping" button below to start selecting subjects</p>
+        </div>
+      `;
+    }
+    
+    // Update dropdowns and counters
+    updateCartDropdown();
+    
+    // Reset all completion states
+    document.querySelectorAll('.step[data-step]').forEach(step => {
+      if (parseInt(step.getAttribute('data-step')) > 1) {
+        step.classList.remove('completed');
+      }
+    });
+    
+    // If we're past step 1, go back to step 1
+    if (state.currentStep > 1) {
+      updateStep(1);
+      state.currentStep = 1;
+      updateProgressBar();
+    }
+  }
+
+  // Function to check if all cart items are fully configured
+function isCartFullyConfigured() {
+    for (const subject of state.selectedSubjects) {
+        const config = state.subjectConfigs[subject];
+        
+        // Skip exam board check for Maths
+        if (subject !== 'maths' && !config.examBoard) {
+            return false;
+        }
+        
+        if (!config.level) {
+            return false;
+        }
+        
+        // Check if tier is needed but missing
+        const subjectData = subjectCategories[subject];
+        let tiers = [];
+        
+        if (subject === 'maths') {
+            tiers = subjectData.levels[config.level].tiers;
+        } else {
+            const boardData = subjectData.examBoards[config.examBoard];
+            if (boardData) {
+                const levelData = boardData.levels[config.level];
+                if (levelData) {
+                    tiers = levelData.tiers;
+                }
+            }
+        }
+        
+        // Check if this combination requires tier selection
+        const needsTierSelection = tiers.length > 1 && 
+                                !tiers.includes("Not specified") && 
+                                !tiers.includes("Not tiered");
+        
+        if (needsTierSelection && !config.tier) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+  // Final checkout button in the cart page
+  document.getElementById('finalCheckoutBtn')?.addEventListener('click', () => {
+    // First check if all items in the cart are fully configured
+    if (!isCartFullyConfigured()) {
+      alert("Please complete all required selections for your subjects before checking out.");
+      
+      // Find which step needs to be completed first
+      let firstIncompleteStep = 2; // Default to exam board selection
+      let needToNavigate = false;
+      
+      for (const subject of state.selectedSubjects) {
+        const config = state.subjectConfigs[subject];
+        
+        if (!config.examBoard) {
+          firstIncompleteStep = 2;
+          needToNavigate = true;
+          break;
+        } else if (!config.level) {
+          firstIncompleteStep = 3;
+          needToNavigate = true;
+          break;
+        } else {
+          // Check if tier selection is needed
+          const subjectData = subjectCategories[subject];
+          const boardData = subjectData.examBoards[config.examBoard];
+          const levelData = boardData.levels[config.level];
+          const tiers = levelData.tiers;
+          
+          const needsTierSelection = tiers.length > 1 && 
+                                    !tiers.includes("Not specified") && 
+                                    !tiers.includes("Not tiered");
+          
+          if (needsTierSelection && !config.tier) {
+            firstIncompleteStep = 4;
+            needToNavigate = true;
+            break;
+          }
+        }
+      }
+      
+      if (needToNavigate) {
+        // Navigate to the first incomplete step
+        updateStep(firstIncompleteStep);
+        state.currentStep = firstIncompleteStep;
+        updateProgressBar();
+        
+        // Generate content for the step
+        if (firstIncompleteStep === 2) generateExamBoardSelector();
+        else if (firstIncompleteStep === 3) generateLevelOptions();
+        else if (firstIncompleteStep === 4) generateTierOptions();
+      }
+      return;
+    }
+    
+    // Then check if a package is selected
+    if (!state.selectedPackage) {
+      alert("Please select a payment package before checking out.");
+      updateStep(5);
+      state.currentStep = 5;
+      updateProgressBar();
+      return;
+    }
+ 
+    // Disable the button to prevent further clicks
+    checkoutBtn.disabled = true;
+  });
+
+  // Listen for window resize and adjust layout
+  window.addEventListener('resize', () => {
+    updateLayoutForScreenSize();
+  });
+
+  function updateLayoutForScreenSize() {
+    // Update the isSmallScreen variable based on current dimensions
+    const wasSmallScreen = isSmallScreen;
+    const nowSmallScreen = window.innerHeight < 900 || window.innerWidth < 1366;
+    
+    // Only regenerate layouts if the screen size category changed
+    if (wasSmallScreen !== nowSmallScreen) {
+      // Regenerate content for the current step if needed
+      if (state.currentStep === 2) {
+        generateExamBoardSelector();
+      } else if (state.currentStep === 3) {
+        generateLevelOptions();
+      } else if (state.currentStep === 4) {
+        generateTierOptions();
+      } else if (state.currentStep === 5) {
+        updatePackageCards();
+      }
+    }
+    
+    // Always apply consistent spacing regardless of screen size change
+    applyConsistentSpacing();
+  }
+}); 
+
+function initSubjectColors() {
+  const subjects = ['maths', 'business', 'economics', 'biology', 'chemistry', 'physics'];
+  subjects.forEach(subject => {
+    const style = document.createElement('style');
+    style.textContent = `
+      [data-subject="${subject}"] .subject-icon,
+      [data-subject="${subject}"] h3,
+      [data-subject="${subject}"] h4 {
+        color: var(--ezy-${subject}) !important;
+      }
+    `;
+    document.head.appendChild(style);
+  });
+}
+
+// Call this when the page loads
+document.addEventListener('DOMContentLoaded', initSubjectColors);
+</script>
+</body>
+</html>
+
